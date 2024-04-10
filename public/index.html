@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Form</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #bbb;
+        }
+        p{
+            font-weight: bold;
+            color:blue
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            padding: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"]{ 
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        input[type="number"]{ 
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Add media queries for responsiveness */
+        @media (max-width: 500px) {
+            .form-container {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Elección Docente</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="nombre" placeholder="Escriba su nombres y apellidos" required >
+            </div>
+            <div class="form-group">
+                <label for="email">No. Cedula:</label>
+                <input type="number" id="email" name="cedula" placeholder="escriba sin espacio ni puntos" required>
+            </div>
+            <button type="submit" id="boton">Registrese!</button>
+        </form>
+        <p>Esp- Alecio Viola Payares</p>
+    </div>
+    <script>
+        const api = "https://script.google.com/macros/s/AKfycbxvTtbWf5XBy2zrlDRw_kmIRYQf6rpbgULRyKNG2sLlg_txDLUffyXvl0wWvih36xb6Og/exec"
+        const form = document.querySelector("form");
+        const boton = document.getElementById("boton");
+        window.onload = function(){
+        form.addEventListener("submit",(e)=> e.preventDefault())
+        }
+        boton.addEventListener('click',AddDatos);
+       function AddDatos(){
+        if (form.nombre.value=="" && form.cedula.value==0){ 
+            alert("Escriba su Nombre y Número de Cedula")
+            return
+        }else
+        {
+            const datos={
+                nombre:form.nombre.value,
+                cedula:form.cedula.value
+
+            }
+            fetch(api,{
+                method:"POST",
+                body:JSON.stringify(datos)
+            })
+            .then(response => response.text())
+            .then(data=>alert(data))
+            form.reset();
+         window.location.href="votar.html"   
+
+        }
+        
+    }
+    </script>
+</body>
+</html>

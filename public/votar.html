@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votacion</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            padding: 0 20px;
+            background-color: #53d4b1;
+        }
+
+        .contenedor {
+            max-width: 100vw;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+
+        .tarjeta {
+            background-color: white;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            width: 25vw;
+            height: 100%;
+            /*overflow: hidden;*/
+        }
+
+        .tarjeta img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .tarjeta .contenido {
+            padding: 5px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tarjeta h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        
+
+        @media (max-width: 768px) {
+            .contenedor {
+                grid-template-columns: repeat(auto-fit, minmax(70px, 3fr));
+            }
+            .tarjeta h3 {
+            font-size: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .tarjeta .contenido {
+            padding: 5px;
+            width: 100%;
+        }
+        .tarjeta {
+            background-color: white;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            width: 50px;
+            height: 100%;
+            /*overflow: hidden;*/
+        }
+
+        }
+    </style>
+</head>
+<body>
+<div class="contenedor">
+     <div class="tarjeta">
+            <img src="/Gerardo Gutierrez Meza.jpeg" alt="Tarjeta 1">
+            <div class="contenido">
+                <h3>Gerardo Gutierrez Meza</h3>
+                </div>
+        </div>
+        <div class="tarjeta">
+            <img src="/Modesto enrique Cueto Alvarez.jpeg" alt="Tarjeta 2">
+            <div class="contenido">
+                <h3>Modesto Enrique Cueto Alvarez</h3>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <img src="/blanco.jpg" alt="Tarjeta 3">
+            <div class="contenido">
+                <h3>Voto en Blanco</h3>
+                </div>
+        </div>
+    
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const api = "https://script.google.com/macros/s/AKfycbxvTtbWf5XBy2zrlDRw_kmIRYQf6rpbgULRyKNG2sLlg_txDLUffyXvl0wWvih36xb6Og/exec";
+        window.onload=()=>{
+            Swal.fire({
+            title: "Votación Docente",
+            text: "¡Haz Click en el Candidato de tu preferencia!",
+            imageUrl: "/a votar.gif",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "Alecio Viola"
+            });
+        }
+const imagen=document.querySelectorAll("img");
+imagen[0].addEventListener('click',()=>{
+    Swal.fire({
+            title: "Gerardo Gutierrez Meza",
+            text: "¡ Gracias por tu Voto !",
+            imageUrl: "/Gerardo Gutierrez Meza.jpeg",
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: "Alecio Viola"
+            });
+            agregavoto("Gerardo",1) 
+            //stop()
+            //window.location.href = "/index.html";
+
+})
+imagen[1].addEventListener('click',()=>{
+    Swal.fire({
+            title: "Modesto enrique Cueto Alvarez",
+            text: "¡ Gracias por tu Voto !",
+            imageUrl: "/Modesto enrique Cueto Alvarez.jpeg",
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: "Alecio Viola"
+            });
+            agregavoto("Modesto",1)
+            //stop()
+            //window.location.href = "/index.html";
+})
+imagen[2].addEventListener('click',()=>{
+    Swal.fire({
+            title: "Voto en Blanco",
+            text: "¡ Gracias por tu participación !",
+            imageUrl: "/blanco.jpg",
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: "Alecio Viola"
+            });
+            
+            agregavoto("Blanco",1)
+            //stop()
+            //window.location.href = "/index.html";
+})
+function agregavoto(nombre,voto){
+    fetch(api,{
+        method:'POST',
+        body:JSON.stringify({
+            nombre:nombre,
+            voto:voto})})
+    .then(res=>res.text())
+    .then(res=>{
+        console.log(res)
+    })
+}
+</script>
+</body>
+</html>
