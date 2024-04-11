@@ -170,7 +170,11 @@ function agregavoto(nombre,voto){
     .then(res=>{
         console.log(res)
     })
-}
+    imagen[0].removeEventListener("click");
+    imagen[1].removeEventListener("click");
+    imagen[2].removeEventListener("click");
+
+    }
 </script>
 </body>
 </html>
