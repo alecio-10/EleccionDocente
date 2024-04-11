@@ -122,6 +122,11 @@ const imagen=document.querySelectorAll("img");
 imagen[0].addEventListener('click',gerardo)
 imagen[1].addEventListener('click',modesto)
 imagen[2].addEventListener('click',blanco)
+function borrarclick(){
+        imagen[0].removeEventListener("click",gerardo);
+        imagen[1].removeEventListener("click",modesto);
+        imagen[2].removeEventListener("click",blanco);
+    }
 function gerardo(){  
     Swal.fire({
             title: "Gerardo Gutierrez Meza",
@@ -131,8 +136,8 @@ function gerardo(){
             imageHeight: 200,
             imageAlt: "Alecio Viola"
             });
-            agregavoto("Gerardo",1) 
-            
+            agregavoto("Gerardo",1)
+            borrarclick()            
 }
 function modesto(){
     Swal.fire({
@@ -144,10 +149,9 @@ function modesto(){
             imageAlt: "Alecio Viola"
             });
             agregavoto("Modesto",1)
-            
+            borrarclick()
 }
 function blanco(){
-
     Swal.fire({
             title: "Voto en Blanco",
             text: "¡ Gracias por tu participación !",
@@ -156,9 +160,8 @@ function blanco(){
             imageHeight: 200,
             imageAlt: "Alecio Viola"
             });
-            
-            agregavoto("Blanco",1)
-            
+          agregavoto("Blanco",1)
+          borrarclick()
 }
 function agregavoto(nombre,voto){
     fetch(api,{
@@ -170,10 +173,6 @@ function agregavoto(nombre,voto){
     .then(res=>{
         console.log(res)
     })
-    imagen[0].removeEventListener("click",gerardo);
-    imagen[1].removeEventListener("click",modesto);
-    imagen[2].removeEventListener("click",blanco);
-
     }
 </script>
 </body>
